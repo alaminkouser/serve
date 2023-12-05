@@ -1,11 +1,12 @@
 const PORT = 8000;
 const HOME = "./home";
-const INDEX = false;
+const INDEX = true;
 
 Deno.serve(
   { port: PORT, hostname: "0.0.0.0" },
   (request, _serveHandlerInfo) => {
-    const PATH = HOME + new URL(request.url).pathname;
+    const PATH = HOME + decodeURIComponent(new URL(request.url).pathname);
+    console.log(PATH);
     switch (request.method) {
       case "GET":
         if (PATH.endsWith("/")) {
